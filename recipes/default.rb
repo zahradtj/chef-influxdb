@@ -24,6 +24,8 @@ require 'pp'
 arch = /x86_64/.match(node[:kernel][:machine]) ? 'amd64' : 'i686'
 node.default[:influxdb][:source] = "http://s3.amazonaws.com/influxdb/influxdb_#{node[:influxdb][:version]}_#{arch}.deb"
 
+Chef::Log.info("#{node[:influxdb][:version]}")
+
 if (node[:influxdb][:version] =~ /^0\.9\./)
   influxdb_config =  node[:influxdb][:zero_nine][:config]
   dirs = [node[:influxdb][:data_root_dir], influxdb_config[:data][:dir], influxdb_config[:broker][:dir]]
